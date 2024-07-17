@@ -4,30 +4,86 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Carousel</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <title>Document</title>
 </head>
 <body>
-  <section class="carousel">
-   <div class="container">
-<ul>
- 
-<li><img src="img/pic1.png" alt=""></li>
-<li><img src="img/pic2.png" alt=""></li>
-<li><img src="img/pic3.png" alt=""></li>
-<li><img src="img/pic4.png" alt=""></li>
-</ul>
-<button id = "prev">&laquo;</button>
-<button id = "next">&raquo;</button>
-</div>
+  <div class = "question">
 
-<nav>
+  </div>
+  <div class = "button">
   
- 
   
-  </nav>
-</section>
+  
+  </div>
+  
+  <script> 
+  
+  const buttonType = ["btn-primary","btn-success","btn-info","btn-dark"]
+  options = ["スクアード","黒髭","赤犬","センゴク"]
+  question = "ワンピースの頂上戦争で白髭を剣で刺したのは誰？"
+  const q = document.querySelector(".question")
+  const p = document.createElement("p");
+  let index = 0;
+  p.textContent = question;
+  p.style.textAlign = "center"
+  q.appendChild(p);
+  
+  options.forEach((option) => {
 
-  <script src="js/main.js"></script>
+  const btn1 = document.querySelector(".button");
+  const btn = document.createElement("button");
+  btn.textContent = option;
+  btn.classList.add("btn",buttonType[index])
+  btn.style.marginLeft = "5px";
+  btn1.style.display = "flex"
+  btn1.setAttribute("style","text-align: center")
+  index++;
+  btn1.appendChild(btn);
+  });
+  const optionsBtn =  document.querySelector(".button").children
+  const array = Array.from(optionsBtn)
+  array.forEach((btn) =>{
+  btn.addEventListener("click",(e)=>{
+    if (e.target.textContent == "スクアード"){
+      alert("正解です");
+    }else{
+      alert("不正解です")
+    }
+  
+  
+  })
+  })
+  
+  
+  
+  // optionsBtn.forEach(a=>{
+  //   console.log(a)
+  // }
+  // )
+  
+  
+  
+  // optionsBtn.forEach((btn)=>  {
+  // console.log(btn)
+  //   })
+  
+  
+  
+  
+  
+  // optionsBtn.forEach((option)=>{
+  
+  //   option.addEventListener('click', (e) => {
+  //     console.log(e)
+  //   });
+  // })
+  
+  
+  
+  </script>
+  
+  
 </body>
 </html>
+
