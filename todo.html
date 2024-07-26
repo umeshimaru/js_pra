@@ -8,11 +8,12 @@
   <title>Document</title>
 </head>
 <body>
-<div class="container"></div>
+  <div class="big-container " style="text-align:center;">
+<div class="container" ></div>
 <div class="task-num"></div>
-<div class="input-task input-group w-50"></div>
-<ul class="show-task "></ul>
-
+<div class="input-task input-group w-25" style=" margin: 0 auto;"></div>
+<ul class="show-task" ></ul>
+</div>
 <script>
 let allTaskNum= 0
 let incompleteTaskNum = 0
@@ -27,7 +28,7 @@ divTaskNum.innerHTML = `<p>全タスク:<span class="all-tasks">0</span></p> <p>
 const inputTask = document.querySelector(".input-task")
 inputTask.innerHTML = 
 `<input type=text class=form-control placeholder="入力してください" autofocus>
-<button class="btn btn-outline-secondary">保存</button>`
+<button class="btn btn-outline-info">保存</button>`
 
 let taskId = 0
 const createBtn = document.querySelector(".btn")
@@ -39,9 +40,16 @@ createBtn.addEventListener("click",(e)=>{
  
 const text = document.querySelector(".form-control")
 const li = document.createElement("li")
-ul.style.paddingLeft = 0
-li.style.listStyle = 0;
-li.classList = "col-xs-2"
+
+li.classList = "input-group w-25 "
+li.style.margin ="10px auto"
+li.style.alignItems = "center"
+li.style.justifyContent = "space-between"
+
+
+
+
+
 ul.append(li)
 
 const task = {
@@ -54,8 +62,11 @@ text.value = ""
   li.innerHTML = 
                 `<input class="form-check-input me-1 input-${task.id}" type=checkbox id = "${task.id}"  >
                 <label class="form-check-label label-${task.id}" for = "${task.id}">${task.text}</label>
-                <button class="btn btn-outline-success edit-${task.id}">編集</button>
+                
+              
+                <button class="btn btn-outline-success edit-${task.id} ">編集</button>
                 <button class="btn btn-outline-danger delete-${task.id}">削除</button>
+              
                 `
                 
 
@@ -123,9 +134,9 @@ label.remove()
 
 
 editBtn.insertAdjacentHTML('beforebegin', 
-`<input type=text class="form-control new-input "placeholder="入力してください" autofocus >
+`<input type=text class="form-control new-input" "placeholder="入力してください" autofocus >
 
-<button class="btn btn-outline-info save-btn" style="margin-right:5px;">保存</button>`)
+<button class="btn btn-outline-info save-btn  " >保存</button>`)
 // `<input type=text class="form-control new-input-${task.id}" placeholder="入力してください" id = new-task-${task.id}>
 // <label class="form-check-label new-label-${task.id}" for = new-task-${task.id}></label>
 // `<button class="btn btn-outline-info save-${task.id}" style="padding-right:5px";>保存</button>`);
