@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <title>Document</title>
+</head>
+<body>
+  <div class="big-container " style="text-align:center;">
+<div class="container" ></div>
+<div class="task-num"></div>
+<div class="input-task input-group w-25" style=" margin: 0 auto;"></div>
+<ul class="show-task" ></ul>
+</div>
+<script>
+let allTaskNum= 0
+let incompleteTaskNum = 0
+let completeTaskNum = 0
+
+const divContainer = document.querySelector(".container")
+divContainer.innerHTML = "<h1>TODOリスト</h1>";
+
+const divTaskNum = document.querySelector(".task-num")
+divTaskNum.innerHTML = `<p>全タスク:<span class="all-tasks">0</span></p> <p>完了済みタスク:<span class="complete-tasks">0</span> </p><p>未完了タスク:<span class="incomplete-tasks">0</span></p>`
+
+const inputTask = document.querySelector(".input-task")
+inputTask.innerHTML = 
+`<input type=text class=form-control placeholder="入力してください" autofocus>
+<button class="btn btn-outline-info">保存</button>`
+
+let taskId = 0
+const createBtn = document.querySelector(".btn")
+const ul = document.querySelector("ul")
+
+createBtn.addEventListener("click",(e)=>{
+  taskId = ++taskId
+ 
+ 
+const text = document.querySelector(".form-control")
+const li = document.createElement("li")
+
+li.classList = "input-group w-25 "
+li.style.margin ="10px auto"
+li.style.alignItems = "center"
+li.style.justifyContent = "space-between"
+
+
+
+
+
+ul.append(li)
+
+const task = {
+              id:`${taskId}`,
+              text: `${text.value}`
+}
+text.value = ""
+
+// タスクの表示
+  li.innerHTML = 
+                `<input class="form-check-input me-1 input-${task.id}" type=checkbox id = "${task.id}"  >
+                <label class="form-check-label label-${task.id}" for = "${task.id}">${task.text}</label>
+                
+              
+                <button class="btn btn-outline-success edit-${task.id} ">編集</button>
+                <button class="btn btn-outline-danger delete-${task.id}">削除</button>
+              
+                `
+                
+
+                // タスクが新規作成されるとタスクの数が増減
+const allTasks = document.querySelector(".all-tasks")
+const incompleteTasks = document.querySelector(".incomplete-tasks")
+allTasks.textContent = ++allTaskNum
+incompleteTasks.textContent = ++incompleteTaskNum
+
+// インプットにチェックが入ったらタスクの数が増減
+const checkBox = document.getElementById(`${taskId}`)
+const completeTask = document.querySelector(".complete-tasks")
+checkBox.addEventListener("click",(e)=>{
+  e.target.classList.toggle("checked")
+  if(e.target.checked){
+  
+    completeTaskNum = ++completeTaskNum
+    completeTask.textContent = completeTaskNum
+    incompleteTaskNum = --incompleteTaskNum
+    incompleteTasks.textContent = incompleteTaskNum
+  }else{
+    completeTaskNum = --completeTaskNum
+    completeTask.textContent = completeTaskNum
+    incompleteTaskNum = ++incompleteTaskNum
+    incompleteTasks.textContent = incompleteTaskNum
+  }
+})
+
+
+// 削除機能(クリックした要素の削除)
+const deleteBtn = document.querySelector(`.delete-${task.id}`)
+deleteBtn.addEventListener("click",(e)=>{
+  const li = e.target.closest("li")
+  const input = li.firstElementChild
+  const inputTextElement = input.nextElementSibling.textContent
+  
+ 
+    if (window.confirm(`本当に「${inputTextElement}」を削除してもよろしいですか？`))  deleteTask()
+
+  function deleteTask(){
+  if(input.checked){
+    completeTaskNum = --completeTaskNum
+    completeTask.textContent = completeTaskNum
+  }else{
+    incompleteTaskNum = --incompleteTaskNum
+    incompleteTasks.textContent = incompleteTaskNum
+  }
+  allTasks.textContent = --allTaskNum
+  
+  li.remove()
+
+}})
+
+// 編集ボタン
+const editBtn = document.querySelector(`.edit-${task.id}`)
+editBtn.addEventListener("click",(e)=>{
+const li = e.target.closest("li")
+const editBtn = e.target
+const input = li.firstElementChild
+const label =    document.querySelector(`.label-${task.id}`)
+const newInput = document.createElement("input")
+const newLabel = document.createElement("label")
+input.remove()
+label.remove()
+
+
+editBtn.insertAdjacentHTML('beforebegin', 
+`<input type=text class="form-control new-input" "placeholder="入力してください" autofocus >
+
+<button class="btn btn-outline-info save-btn  " >保存</button>`)
+// `<input type=text class="form-control new-input-${task.id}" placeholder="入力してください" id = new-task-${task.id}>
+// <label class="form-check-label new-label-${task.id}" for = new-task-${task.id}></label>
+// `<button class="btn btn-outline-info save-${task.id}" style="padding-right:5px";>保存</button>`);
+
+const saveBtn = document.querySelector(".save-btn")
+
+
+saveBtn.addEventListener("click",(e)=>{
+
+const newInput = document.querySelector(".new-input")
+newInput.replaceWith(input)
+label.textContent = newInput.value
+input.after(label)
+saveBtn.remove()
+
+
+
+})
+
+
+
+})
+
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>
